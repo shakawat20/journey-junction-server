@@ -50,6 +50,7 @@ run().catch(console.dir)
 
 app.get('/', async (req, res) => {
     console.log("hello world")
+    res.send("hello emon")
 })
 
 
