@@ -31,15 +31,11 @@ async function run() {
         app.get('/destination',async(req,res)=>{
 
             const destination=await destinations.find().toArray()
-            // res.send(destination)
+            res.send(destination)
 
         })
 
-        app.get('/', async (req, res) => {
-            console.log("hello world")
-            // res.send("this is my boy")
-        })
-
+     
   
     }
     finally {
@@ -51,7 +47,7 @@ run().catch(console.dir)
 
 app.get('/', async (req, res) => {
     console.log("hello world")
-    // res.send("hello emon")
+    res.send("hello emon")
 })
 
 
