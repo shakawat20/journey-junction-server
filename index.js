@@ -31,7 +31,7 @@ async function run() {
         app.get('/destination',async(req,res)=>{
 
             const destination=await destinations.find().toArray()
-            res.send(destination)
+            res.send(destinations)
 
         })
 
