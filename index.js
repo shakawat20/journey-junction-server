@@ -35,8 +35,9 @@ async function run() {
 
         })
 
-        app.get('/', async (req, res) => {
+        app.get('/hope', async (req, res) => {
             console.log("hello world")
+            res.send("this is my boy")
         })
 
   
