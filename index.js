@@ -37,9 +37,7 @@ async function run() {
 
 
 
-        app.get('/', async (req, res) => {
-            console.log("hello world")
-        })
+  
     }
     finally {
 
@@ -48,7 +46,9 @@ async function run() {
 run().catch(console.dir)
 
 
-
+app.get('/', async (req, res) => {
+    console.log("hello world")
+})
 
 
 app.listen(PORT, function (err) {
