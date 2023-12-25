@@ -1,5 +1,5 @@
 const express = require('express');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 require('dotenv').config()
 const cors = require('cors')
@@ -42,9 +42,10 @@ async function run() {
             console.log(confirmPayment)
             res.send(confirmPayment)
         })
-        app.get("/paymentInfo",async(req,res)=>{
+        app.get("/paymentInfo/:id",async(req,res)=>{
+          const email=req.params.email
 
-            const confirmPayment =await PaymentInformation.find().toArray()
+            const confirmPayment =await PaymentInformation.find({ _id: new ObjectId(email) }).toArray()
             console.log(confirmPayment)
             res.send(confirmPayment)
         })
