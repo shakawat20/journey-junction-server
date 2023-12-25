@@ -43,11 +43,12 @@ async function run() {
             res.send(confirmPayment)
         })
         app.get("/paymentInfo/:id",async(req,res)=>{
-          const email=req.params.email
-
-            const confirmPayment =await PaymentInformation.find({ _id: new ObjectId(email) }).toArray()
+          const email=req?.params?.id;
+          const findEmail={email:email}
+            const confirmPayment =await PaymentInformation.find(findEmail).toArray()
             console.log(confirmPayment)
             res.send(confirmPayment)
+
         })
 
 
