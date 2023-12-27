@@ -66,7 +66,7 @@ async function run() {
 
 
 
-    app.get('/destination', verifyJWT, async (req, res) => {
+    app.get('/destination', async (req, res) => {
 
       const destination = await destinations.find().toArray()
       res.send(destination)
@@ -81,7 +81,7 @@ async function run() {
       res.send(confirmPayment)
     })
 
-    app.get("/paymentInfo/:id", async (req, res) => {
+    app.get("/paymentInfo/:id", verifyJWT, async (req, res) => {
       const email = req?.params?.id;
       const findEmail = { email: email }
       const confirmPayment = await PaymentInformation.find(findEmail).toArray()
