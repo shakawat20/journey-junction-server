@@ -57,7 +57,7 @@ async function run() {
 
     app.post('/jwt', async (req, res) => {
       const user = req?.body;
-      console.log(user)
+      console.log("kser",user)
       const token = await jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
       console.log("khan", token)
       res.send({ token })
@@ -78,7 +78,7 @@ async function run() {
       const payment = req?.body
 
       const confirmPayment = await PaymentInformation.insertOne(payment)
-      console.log(confirmPayment)
+      
       res.send(confirmPayment)
     })
 
