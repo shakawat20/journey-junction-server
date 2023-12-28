@@ -58,7 +58,7 @@ async function run() {
 
     app.post('/jwt', async (req, res) => {
       const user = req?.body;
-      console.log("kser",user)
+      console.log("kser", user)
       const token = await jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
       console.log("khan", token)
       res.send({ token })
@@ -75,11 +75,24 @@ async function run() {
 
     })
 
+    app.delete('/paymentInfo/:id', async (req, res) => {
+      const transactionId=req?.params.id
+
+      const deleteDestination = { transaction: transactionId };
+      const result = await PaymentInformation.deleteOne(deleteDestination);
+      res.send(result)
+
+
+
+    })
+
+
+
     app.post("/paymentConfirm", async (req, res) => {
       const payment = req?.body
 
       const confirmPayment = await PaymentInformation.insertOne(payment)
-      
+
       res.send(confirmPayment)
     })
 
