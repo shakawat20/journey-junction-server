@@ -54,6 +54,7 @@ async function run() {
     const database = client.db("journey-junction")
     const destinations = database.collection("destination")
     const PaymentInformation = database.collection("PaymentInformation")
+    const UsersCollections = database.collection('users')
 
 
     app.post('/jwt', async (req, res) => {
@@ -104,6 +105,13 @@ async function run() {
       res.send(confirmPayment)
 
     })
+    app.get("/userInfo", verifyJWT, async (req, res) => {
+     
+      const userInfo = await PaymentInformation.find().toArray()
+      console.log(userInfo)
+      res.send(userInfo)
+
+    })
 
 
     app.post("/create-payment-intent", async (req, res) => {
@@ -123,6 +131,57 @@ async function run() {
         clientSecret: paymentIntent.client_secret,
       });
     });
+
+
+
+    app.get('/admin/:email', async (req, res) => {
+      const email = req?.params?.email;
+      const user = await UsersCollections.findOne({ email: email });
+
+      if (user?.role == "admin") {
+          res.send({ admin: true });
+      }
+      else {
+          res.send({ admin: false });
+      }
+
+
+
+  })
+
+
+
+  app.put('/makeAdmin/:id', async (req, res) => {
+    const admin = req.params.id;
+    const user = await UsersCollections.findOne({ email: admin })
+
+    if (user) {
+        const filter = { email: admin }
+        const updateDoc = {
+            $set: { role: 'admin' },
+        };
+        const result = await UsersCollections.updateOne(filter, updateDoc)
+        res.send(result)
+
+    }
+    else {
+
+        const newAdmin = {
+            email: admin,
+            role: "admin"
+        }
+        const adminFinal = await UsersCollections.insertOne(newAdmin)
+        res.send(adminFinal)
+
+    }
+
+
+})
+
+
+
+
+
 
 
 
